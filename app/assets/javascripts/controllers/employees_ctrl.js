@@ -32,8 +32,32 @@
   angular.module("app").controller("employeesCtrl", function ($scope, $http) {
     $scope.page = 1;
 
-    $http.get("/api/employees").then(function (response) {
+
+    $scope.init = function(stuff){
+      $scope.employees = stuff.employees;
+    }
+    
+    $scope.getEmployees = function(){
+      $http.get("/api/employees?page=" + $scope.page).then(function (response) {
       $scope.employees = response.data;
+      });
+    }
+
+    $scope.getEmployees();
+    
+    $scope.changePage = function(forward){
+      if($scope.page === 1 && !forward){
+        $scope.page === 1;
+      }else if(forward){
+        $scope.page ++;
+      }else{
+        $scope.page --;
+      }
+      $scope.getEmployees();
+    }
+
+    $http.get("/api/departments").then(function (response) {
+      $scope.departments = response.data;
     });
 
   });

@@ -1,11 +1,14 @@
-
-<div class="panel" ng-controller="employeesCtrl">
+<div class="panel" ng-controller="employeesCtrl" ng-init="init({employees: <%= @employees %>})">
 
 <ul class="pager">
-  <li class="previous"><a href="">&larr; Previous Page</a></li>
-  <li><input ng-model="deptQuery" placeholder="Department"></li>
+  <li class="previous" ng-click="changePage(false)"><a href="">&larr; Previous Page</a></li>
+  <li><input ng-model="deptQuery" placeholder="Department" type="text" list="departments" name="department"></li>
+  <datalist id="departments">
+    <option ng-repeat="department in departments" value="{{department.name}}">
+  </datalist>
+
   <span class="label label-primary">Page: {{ page }}</span>
-  <li class="next"><a href="">Next Page &rarr;</a></li>
+  <li class="next" ng-click="changePage(true)"><a href="">Next Page &rarr;</a></li>
 </ul>
 
   <ul class="list-group">
